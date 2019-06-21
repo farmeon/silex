@@ -2,7 +2,6 @@
 <html>
     <head>
         <title>{% block title '' %} - My Silex Application</title>
-
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" />
 
         <script type="text/javascript">
@@ -18,6 +17,8 @@
         </script>
     </head>
     <body>
+        {% block menu %}{% endblock %}
+
         {% block content %}{% endblock %}
     </body>
 </html>
