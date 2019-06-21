@@ -1,0 +1,37 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+    postgres:
+      image: postgres:9.5-alpine
+      container_name: testing-postgres
+      working_dir: /application
+      volumes:
+        - .:/application
+      environment:
+        - POSTGRES_USER=silex
+        - POSTGRES_PASSWORD=silex
+        - POSTGRES_DB=db_silex
+      ports:
+        - "8892:5432"
+
+    webserver:
+      image: nginx:alpine
+      container_name: testing-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8888:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: testing-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+
