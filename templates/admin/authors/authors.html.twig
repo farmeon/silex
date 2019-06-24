@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block menu %}
+    <a href="{{ path('author_insert') }}">Добавить автора</a>
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for author in authors %}
+            <li>Id : {{ author.id }}, Name : {{ author.name }}
+                <a href="{{ path('author_show', {id: author.id}) }}">Показать</a>
+                <a href="{{ path('author_update', {id: author.id}) }}">Редактировать</a>
+                <a href="{{ path('author_delete', {id: author.id}) }}">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

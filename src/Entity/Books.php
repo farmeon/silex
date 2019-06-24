@@ -5,10 +5,11 @@ namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Class Books
  * @ORM\Entity
- * @ORM\Table(name="authors")
+ * @ORM\Table(name="books")
  */
-class Authors
+class Books
 {
     /**
      * @ORM\Column(type="integer")
@@ -26,6 +27,11 @@ class Authors
      * @ORM\Column(type="text")
      */
     protected $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Authors", mappedBy="books")
+     */
+    protected $authors;
 
 
     public function getId()
@@ -56,6 +62,23 @@ class Authors
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    public function addAuthors(Authors $authors)
+    {
+        $this->authors[] = $authors;
+
+        return $this;
+    }
+
+    public function removeAuthors(Authors $authors)
+    {
+        $this->authors->removeElement($authors);
+    }
+
+    public function getAuthors()
+    {
+        return $this->authors;
     }
 
 }

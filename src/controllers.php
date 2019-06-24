@@ -13,10 +13,6 @@ $app->get('/', function () use ($app) {
 })
 ->bind('homepage');
 
-//Authors routing
-$app->get('/authors', 'Controller\AuthorsController::indexAction')
-    ->bind('authors');
-
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     if ($app['debug']) {
         return;
