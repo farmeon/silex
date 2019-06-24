@@ -1,0 +1,18 @@
+{% extends 'layout.html.twig' %}
+
+
+{% block menu %}
+    <a href="{{ path('book_insert') }}">Добавить книгу</a>
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for book in books %}
+            <li>Id : {{ book.id }}, Name : {{ book.name }}
+                <a href="{{ path('book_show', {id: book.id}) }}">Показать</a>
+                <a href="{{ path('book_update', {id: book.id}) }}">Редактировать</a>
+                <a href="{{ path('book_delete', {id: book.id}) }}">Удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

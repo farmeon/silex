@@ -2,7 +2,7 @@
 
 namespace Controller;
 
-use Entity\Authors;
+use Entity\Books;
 use Silex\Application;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class AuthorsController extends AbstractController implements ControllerProviderInterface
+class BooksController extends AbstractController implements ControllerProviderInterface
 {
 
     /**
@@ -24,52 +24,52 @@ class AuthorsController extends AbstractController implements ControllerProvider
     public function connect(Application $app)
     {
         $factory = $app['controllers_factory'];
-        $factory->get("/", [$this, 'index'])->bind('author_index');
-        $factory->get("/show/{id}", [$this, 'show'])->bind('author_show');
-        $factory->match("/create", [$this, 'create'])->bind('author_insert');
-        $factory->match("/update/{id}", [$this, 'update'])->bind('author_update');
-        $factory->get("/delete/{id}", [$this, 'delete'])->bind('author_delete');
+        $factory->get("/", [$this, 'index'])->bind('book_index');
+        $factory->get("/show/{id}", [$this, 'show'])->bind('book_show');
+        $factory->match("/create", [$this, 'create'])->bind('book_insert');
+        $factory->match("/update/{id}", [$this, 'update'])->bind('book_update');
+        $factory->get("/delete/{id}", [$this, 'delete'])->bind('book_delete');
 
         return $factory;
     }
 
     /**
-     * List all authors
+     * List all books
      * @param Application $app
      * @return mixed
      */
     public function index(Application $app)
     {
-        $authors = $app['orm.em']->getRepository(Authors::class)
+        $books = $app['orm.em']->getRepository(Books::class)
             ->findAll();
 
-        return $app['twig']->render('/admin/authors/books.html.twig', [
-            'authors' => $authors
+        return $app['twig']->render('/admin/books/books.html.twig', [
+            'books' => $books
         ]);
     }
 
     /**
-     * Show author by id
+     * Show book by id
      * @param Application $app
      * @param int $id
      * @return mixed
      */
     public function show(Application $app, int $id)
     {
-        $author = $app['orm.em']->getRepository(Authors::class)
+        $book = $app['orm.em']->getRepository(Books::class)
             ->find($id);
 
-        if (!$author) {
-            $app->abort(404, 'No author found for id ' . $id);
+        if (!$book) {
+            $app->abort(404, 'No book found for id ' . $id);
         }
 
-        return $app['twig']->render('/admin/authors/show.html.twig', [
-            'authors' => $author
+        return $app['twig']->render('/admin/books/show.html.twig', [
+            'books' => $book
         ]);
     }
 
     /**
-     * Update author by id
+     * Update book by id
      * @param Application $app
      * @param Request $request
      * @param $id
@@ -77,14 +77,14 @@ class AuthorsController extends AbstractController implements ControllerProvider
      */
     public function update(Application $app, Request $request, int $id)
     {
-        $author = $app['orm.em']->getRepository(Authors::class)
+        $book = $app['orm.em']->getRepository(Books::class)
             ->find($id);
 
-        if (!$author) {
-            $app->abort(404, 'No author found for id ' . $id);
+        if (!$book) {
+            $app->abort(404, 'No book found for id ' . $id);
         }
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $author)
+        $form = $app['form.factory']->createBuilder(FormType::class, $book)
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -107,48 +107,48 @@ class AuthorsController extends AbstractController implements ControllerProvider
         if ($form->isValid()) {
 
             $app['orm.em']->flush();
-            $app['session']->getFlashBag()->add('success', 'Author update success!');
+            $app['session']->getFlashBag()->add('success', 'Book update success!');
 
-            return $app->redirect($app['url_generator']->generate('author_show', ['id' => $author->getId()]));
+            return $app->redirect($app['url_generator']->generate('book_show', ['id' => $book->getId()]));
         }
 
-        return $app['twig']->render('/admin/authors/update.html.twig', [
+        return $app['twig']->render('/admin/books/update.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * Delete author by id
+     * Delete book by id
      * @param Application $app
      * @param int $id
      * @return mixed
      */
     public function delete(Application $app, int $id)
     {
-        $author = $app['orm.em']->getRepository(Authors::class)
+        $book = $app['orm.em']->getRepository(Books::class)
             ->find($id);
 
-        if (!$author) {
-            $app->abort(404, 'No author found for id '.$id);
+        if (!$book) {
+            $app->abort(404, 'No book found for id '.$id);
         }
 
-        $app['orm.em']->remove($author);
+        $app['orm.em']->remove($book);
         $app['orm.em']->flush();
 
-        return $app->redirect($app['url_generator']->generate('author_index'));
+        return $app->redirect($app['url_generator']->generate('book_index'));
     }
 
     /**
-     * Create author
+     * Create book
      * @param Application $app
      * @param Request $request
      * @return mixed
      */
     public function create(Application $app, Request $request)
     {
-        $author = new Authors();
+        $books = new Books();
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $author)
+        $form = $app['form.factory']->createBuilder(FormType::class, $books)
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -170,14 +170,14 @@ class AuthorsController extends AbstractController implements ControllerProvider
 
         if ($form->isValid()) {
 
-            $app['orm.em']->persist($author);
+            $app['orm.em']->persist($books);
             $app['orm.em']->flush();
 
-            return $app->redirect($app['url_generator']->generate('author_show', ['id' => $author->getId()]));
+            return $app->redirect($app['url_generator']->generate('book_show', ['id' => $books->getId()]));
         }
 
-        return $app['twig']->render('/admin/authors/create.html.twig', [
-            'author' => $author,
+        return $app['twig']->render('/admin/books/create.html.twig', [
+            'book' => $books,
             'form' => $form->createView()
         ]);
     }

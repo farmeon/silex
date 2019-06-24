@@ -12,5 +12,6 @@ require __DIR__.'/../src/controllers.php';
  * Groups Controllers for admin panel
  */
 $app->mount('/admin/authors', new \Controller\AuthorsController());
+$app->mount('/admin/books', new \Controller\BooksController());
 
 $app->run();
