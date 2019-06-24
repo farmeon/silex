@@ -3,6 +3,9 @@
 namespace Controller;
 
 use Entity\Authors;
+use Entity\Books;
+use Form\Type\BooksType;
+use Form\Type\BooksTypes;
 use Silex\Application;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,6 +16,9 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Form\Type\AuthorsType;
 
 class AuthorsController extends AbstractController implements ControllerProviderInterface
 {
@@ -43,7 +49,7 @@ class AuthorsController extends AbstractController implements ControllerProvider
         $authors = $app['orm.em']->getRepository(Authors::class)
             ->findAll();
 
-        return $app['twig']->render('/admin/authors/books.html.twig', [
+        return $app['twig']->render('/admin/authors/authors.html.twig', [
             'authors' => $authors
         ]);
     }
@@ -97,6 +103,24 @@ class AuthorsController extends AbstractController implements ControllerProvider
                     new Assert\Length(['min' => 10])
                 ]
             ])
+
+            ->add('books', ChoiceType::class, [
+                'choices' => $app['orm.em']->getRepository(Books::class)->findAll(),
+                'choices_as_values' => true,
+                'choice_label' => function($books, $key, $value) {
+                    return strtoupper($books->getName());
+                },
+                'choice_attr' => function($books, $key, $value) {
+                    return ['class' => 'books_'.strtolower($books->getId())];
+                },
+            ])
+
+            /*->add('books', CollectionType::class, array(
+                'entry_type' => BooksType::class,
+                'allow_add' => true,
+                'allow_delete' => true
+            ))*/
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Save',
             ])

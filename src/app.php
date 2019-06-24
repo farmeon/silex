@@ -54,9 +54,22 @@ $app->register(new DoctrineORMServiceProvider(), array(
     ],
 ));
 
-
-
 $app->register(new LocaleServiceProvider());
+
+$app->register(new Silex\Provider\FormServiceProvider(), []);
+$app->extend('form.extensions', function($extensions, $app) {
+    if (isset($app['form.doctrine.bridge.included'])) return $extensions;
+    $app['form.doctrine.bridge.included'] = 1;
+
+    $mr = new \Service\ManagerRegistry(
+        null, array(), array('em'), null, null, '\\Doctrine\\ORM\\Proxy\\Proxy'
+    );
+    $mr->setContainer($app);
+    $extensions[] = new \Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension($mr);
+
+    return $extensions;
+});
+
 $app->register(new TranslationServiceProvider(), [
     'locale_fallbacks' => ['en'],
 ]);

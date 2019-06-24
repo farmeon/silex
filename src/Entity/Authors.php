@@ -2,7 +2,9 @@
 
 namespace Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 
 /**
@@ -12,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Authors
 {
-
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -32,10 +33,14 @@ class Authors
 
     /**
      * @ORM\ManyToMany(targetEntity="Books", inversedBy="authors")
-     * @ORM\JoinColumn(name="author_book")
+     * @ORM\JoinTable(name="authors_books")
      */
     protected $books;
 
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -67,16 +72,21 @@ class Authors
         $this->description = $description;
     }
 
-    public function setBooks(Books $books = null)
-    {
-        $this->books = $books;
-
-        return $this;
-    }
-
-    public function getBooks()
+    /**
+     * @return Collection|Books[]
+     */
+    public function getBooks(): Collection
     {
         return $this->books;
+    }
+
+    public function addBooks(Books $books = null): self
+    {
+        if (!$this->books->contains($books)) {
+            $this->books[] = $books;
+        }
+
+        return $this;
     }
 
 }

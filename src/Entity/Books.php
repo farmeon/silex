@@ -3,6 +3,8 @@
 namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Collection;
 
 /**
  * Class Books
@@ -33,6 +35,10 @@ class Books
      */
     protected $authors;
 
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -64,21 +70,31 @@ class Books
         $this->description = $description;
     }
 
-    public function addAuthors(Authors $authors)
-    {
-        $this->authors[] = $authors;
-
-        return $this;
-    }
-
-    public function removeAuthors(Authors $authors)
-    {
-        $this->authors->removeElement($authors);
-    }
-
-    public function getAuthors()
+    /**
+     * @return Collection|Authors[]
+     */
+    public function getAuthors(): Collection
     {
         return $this->authors;
     }
 
+    public function addAuthors(Authors $authors): self
+    {
+        if (!$this->authors->contains($authors)) {
+            $this->authors[] = $authors;
+            $authors->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthors(Authors $authors):self
+    {
+        if ($this->authors->contains($authors)) {
+            $this->authors->removeElement($authors);
+            $authors->removeTag($this);
+        }
+
+        return $this;
+    }
 }
