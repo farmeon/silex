@@ -20,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Form\Type\AuthorsType;
 
+
 class AuthorsController extends AbstractController implements ControllerProviderInterface
 {
 
@@ -90,7 +91,7 @@ class AuthorsController extends AbstractController implements ControllerProvider
             $app->abort(404, 'No author found for id ' . $id);
         }
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $author)
+         $form = $app['form.factory']->createBuilder(FormType::class, $author)
             ->add('name', TextType::class, [
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -106,7 +107,6 @@ class AuthorsController extends AbstractController implements ControllerProvider
 
             ->add('books', ChoiceType::class, [
                 'choices' => $app['orm.em']->getRepository(Books::class)->findAll(),
-                'choices_as_values' => true,
                 'choice_label' => function($books, $key, $value) {
                     return strtoupper($books->getName());
                 },
@@ -118,12 +118,17 @@ class AuthorsController extends AbstractController implements ControllerProvider
             /*->add('books', CollectionType::class, array(
                 'entry_type' => BooksType::class,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+                'label' => 'test',
+                'auto_initialize' => true
             ))*/
 
-            ->add('submit', SubmitType::class, [
+           ->add('submit', SubmitType::class, [
                 'label' => 'Save',
             ])
+
             ->getForm();
 
         $form->handleRequest($request);
@@ -172,23 +177,8 @@ class AuthorsController extends AbstractController implements ControllerProvider
     {
         $author = new Authors();
 
-        $form = $app['form.factory']->createBuilder(FormType::class, $author)
-            ->add('name', TextType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Length(['min' => 5])
-                ]
-            ])
-            ->add('description', TextareaType::class, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Length(['min' => 10])
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Save',
-            ])
-            ->getForm();
+        $bookList = $app['orm.em']->getRepository(Books::class)->findAll();
+        $form = $app['form.factory']->createBuilder(\Form\AuthorsType::class, $author, ['book_list' => $bookList])->getForm();
 
         $form->handleRequest($request);
 

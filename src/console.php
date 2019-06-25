@@ -10,9 +10,13 @@ $console = new Application('My Silex Application', 'n/a');
 $console->getDefinition()->addOption(new InputOption('--env', '-e', InputOption::VALUE_REQUIRED, 'The Environment name.', 'dev'));
 $console->setDispatcher($app['dispatcher']);
 
-$console->setHelperSet(new Symfony\Component\Console\Helper\HelperSet(array(
-    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($app['db.orm.em'])
-)));
+$app->boot();
+$helperSet = new \Symfony\Component\Console\Helper\HelperSet([
+    'db' => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($app['db']),
+    'dialog' => new \Symfony\Component\Console\Helper\QuestionHelper(),
+    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($app['orm.em'])
+]);
+$console->setHelperSet($helperSet);
 $console->addCommands(array(
     new \Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand,
     new \Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand,

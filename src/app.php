@@ -11,8 +11,8 @@ use Silex\Provider\FormServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
-
-
+use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
+use  Service\ManagerRegistry;
 
 $app = new Application();
 
@@ -29,7 +29,7 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
 $app->register(new DoctrineServiceProvider, [
     'db.options' => [
         'driver' => 'pdo_pgsql',
-        'host' => '192.168.48.2',
+        'host' => '192.168.48.3',
         'dbname' => 'db_silex',
         'user' => 'silex',
         'password' => 'silex',
@@ -61,11 +61,11 @@ $app->extend('form.extensions', function($extensions, $app) {
     if (isset($app['form.doctrine.bridge.included'])) return $extensions;
     $app['form.doctrine.bridge.included'] = 1;
 
-    $mr = new \Service\ManagerRegistry(
-        null, array(), array('em'), null, null, '\\Doctrine\\ORM\\Proxy\\Proxy'
+    $mr = new ManagerRegistry(
+        null, array(), array('em'), null, null, '\Doctrine\ORM\Proxy\Proxy'
     );
     $mr->setContainer($app);
-    $extensions[] = new \Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension($mr);
+    $extensions[] = new DoctrineOrmExtension($mr);
 
     return $extensions;
 });

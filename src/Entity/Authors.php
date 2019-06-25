@@ -89,4 +89,12 @@ class Authors
         return $this;
     }
 
+    public function setBooks(Books $books = null): self
+    {
+        if (!$this->books->contains($books)) {
+            $this->books[] = $books;
+        }
+
+        return $this;
+    }
 }

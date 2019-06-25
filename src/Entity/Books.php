@@ -88,6 +88,16 @@ class Books
         return $this;
     }
 
+    public function setAuthors(Authors $authors): self
+    {
+        if (!$this->authors->contains($authors)) {
+            $this->authors[] = $authors;
+            $authors->addTag($this);
+        }
+
+        return $this;
+    }
+
     public function removeAuthors(Authors $authors):self
     {
         if ($this->authors->contains($authors)) {

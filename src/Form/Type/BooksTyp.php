@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Form\Type;
 
 use Entity\Books;
@@ -9,19 +10,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class BooksType extends AbstractType
+
+class BooksTyp extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-
-       /* $builder
-            ->add('books', EntityType::class, array(
-                'class' => '\\Entity\\Books',
-                'em' => $this->entityManager
-            ));
-*/
-
+        $builder
+            ->add('books', EntityType::class, [ // add this
+                'label'     => 'Who is fighting in this round?',
+                'expanded'  => true,
+                'multiple'  => true,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

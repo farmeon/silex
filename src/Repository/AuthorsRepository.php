@@ -3,6 +3,7 @@
 namespace Repository;
 
 use Entities\Authors;
+use Entity\Books;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

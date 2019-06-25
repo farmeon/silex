@@ -3,6 +3,7 @@ namespace Service;
 
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use Silex\Application;
+use BadMethodCallException;
 
 class ManagerRegistry extends AbstractManagerRegistry
 {
@@ -20,11 +21,11 @@ class ManagerRegistry extends AbstractManagerRegistry
 
     public function getAliasNamespace($alias)
     {
-        throw new \BadMethodCallException('Namespace aliases not supported.');
+        throw new BadMethodCallException('Namespace aliases not supported.');
     }
 
     public function setContainer(Application $container)
     {
-        $this->container = $container;
+        $this->container = $container['orm.ems'];
     }
 }
