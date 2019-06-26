@@ -5,7 +5,8 @@ namespace Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Validator\ConstraintPhone;
 
 /**
  * Class Authors
@@ -32,10 +33,20 @@ class Authors
     protected $description;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    protected $phone;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Books", inversedBy="authors")
      * @ORM\JoinTable(name="authors_books")
      */
     protected $books;
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('phone', new ConstraintPhone());
+    }
 
     public function __construct()
     {
@@ -70,6 +81,16 @@ class Authors
     public function setDescription(string $description)
     {
         $this->description = $description;
+    }
+
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone)
+    {
+        $this->phone = $phone;
     }
 
     /**

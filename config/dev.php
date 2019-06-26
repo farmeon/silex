@@ -9,6 +9,9 @@ require __DIR__.'/prod.php';
 // enable the debug mode
 $app['debug'] = true;
 
+$app['api.version'] = "v1";
+$app['api.endpoint'] = "/api";
+
 $app->register(new MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../var/logs/silex_dev.log',
 ));

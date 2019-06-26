@@ -104,7 +104,7 @@ class AuthorsController extends AbstractController implements ControllerProvider
                     new Assert\Length(['min' => 10])
                 ]
             ])
-
+            ->add('phone', TextType::class, [])
             ->add('books', ChoiceType::class, [
                 'choices' => $app['orm.em']->getRepository(Books::class)->findAll(),
                 'choice_label' => function($books, $key, $value) {
@@ -114,16 +114,6 @@ class AuthorsController extends AbstractController implements ControllerProvider
                     return ['class' => 'books_'.strtolower($books->getId())];
                 },
             ])
-
-            /*->add('books', CollectionType::class, array(
-                'entry_type' => BooksType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'prototype' => true,
-                'by_reference' => false,
-                'label' => 'test',
-                'auto_initialize' => true
-            ))*/
 
            ->add('submit', SubmitType::class, [
                 'label' => 'Save',

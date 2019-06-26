@@ -34,28 +34,29 @@ class AuthorsType extends AbstractType
                 ]
             ]);
 
-        $books  = array();
+        $booksList  = array();
         $booksActive  = array();
 
-        foreach ($builder->getData()->getBooks() as $id => $books) {
-            $books[$books->getLabel()] = $books->getId();
-            if ($books->getActive()) {
-                $booksActive[] = $books->getId();
+        foreach ($options["book_list"] as $id => $books) {
+            $booksList[] = $books;
+            if ($builder->getData()->getBooks($books)) {
+                $choicesActive[] = $books;
+
             }
         }
 
         $builder->add('books', ChoiceType::class, array(
-            'choices' => $options['book_list'],
+            'choices' => $booksList,
             'data' => $booksActive,
-            'label' => "Groupes",
+            'choice_label' => function($books, $key, $index) {
+                return $books->getName();
+            },
             'multiple' => True,
-            'expanded' => True
         ))
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Save',
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

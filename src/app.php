@@ -12,9 +12,22 @@ use Silex\Provider\LocaleServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Symfony\Bridge\Doctrine\Form\DoctrineOrmExtension;
-use  Service\ManagerRegistry;
+use Service\ManagerRegistry;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Silex\Provider\MonologServiceProvider;
+use Loader\RoutesLoader;
+use Loader\ServicesLoader;
 
 $app = new Application();
+
+$app->before(function (Request $request) {
+    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+        $data = json_decode($request->getContent(), true);
+        $request->request->replace(is_array($data) ? $data : array());
+    }
+});
 
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new AssetServiceProvider());
@@ -79,5 +92,11 @@ $app->register(new FormServiceProvider());
 $app->register(new ValidatorServiceProvider());
 
 $app->register(new Silex\Provider\SessionServiceProvider());
+
+$servicesLoader = new ServicesLoader($app);
+$servicesLoader->bindServicesIntoContainer();
+
+$routesLoader = new RoutesLoader($app);
+$routesLoader->bindRoutesToControllers();
 
 return $app;
