@@ -3,12 +3,15 @@
 
 namespace Controller;
 
+
+use Silex\Application;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class ApiController
+class ApiController extends Controller
 {
     protected $apiService;
 
@@ -22,7 +25,7 @@ class ApiController
         return new JsonResponse($this->apiService->getOne($id));
     }
 
-    public function getAll()
+    public function getAll(Application $app, Request $request)
     {
         return new JsonResponse($this->apiService->getAll());
     }

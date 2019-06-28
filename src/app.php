@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\MonologServiceProvider;
 use Loader\RoutesLoader;
 use Loader\ServicesLoader;
+use Radebatz\Silex\LdapAuth\LdapAuthenticationServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
 
 $app = new Application();
 
@@ -42,7 +44,7 @@ $app['twig'] = $app->extend('twig', function ($twig, $app) {
 $app->register(new DoctrineServiceProvider, [
     'db.options' => [
         'driver' => 'pdo_pgsql',
-        'host' => '192.168.48.3',
+        'host' => '192.168.96.2',
         'dbname' => 'db_silex',
         'user' => 'silex',
         'password' => 'silex',
@@ -99,6 +101,58 @@ $servicesLoader->bindServicesIntoContainer();
 $routesLoader = new RoutesLoader($app);
 $routesLoader->bindRoutesToControllers();
 
+// register service with name LDAP-FORM
+$app->register(new LdapAuthenticationServiceProvider('LDAP-FORM'), array(
+    'security.ldap.LDAP-FORM.options' => array(
+        'auth' => array(
+            'entryPoint' => 'form',
+        ),
+        'ldap' => array(
+            'host' => 'localhost',
+            'username' => 'admin',
+            'password' => 'admin',
+        ),
+    )
+));
+
+// configure firewalls
+$app->register(new SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'login' => array(
+            'pattern' => '^/login$',
+        ),
+        'default' => array(
+            'pattern' => '^.*$',
+            'anonymous' => true,
+            'LDAP-FORM' => array(
+                // form options
+                'check_path' => '/login_check_ldap',
+                'require_previous_session' => false,
+            ),
+            'users' => function () use ($app) {
+                // use the pre-configured Ldap user provider
+                return $app['security.ldap.LDAP-FORM.user_provider'](array(
+                    // configure LDAP attribute to use for auth bind call (dn is the default)
+                    'authName' => 'dn',
+                    'attr' => array(
+                        // LDAP attribute => user property
+                        // these require setter support in the user class
+                        'sn' => 'lastName',
+                    ),
+                    'roles' => array(
+                        'CN=Development,OU=Groups,DC=radebatz,DC=net'   => 'ROLE_USER',
+                        'CN=Admins,OU=Groups,DC=radebatz,DC=net'        => 'ROLE_ADMIN',
+                    ),
+                    'baseDn' => 'DC=radebatz,DC=net',
+                ));
+            },
+        ),
+    )
+));
+
+$app->register(new JDesrosiers\Silex\Provider\JmsSerializerServiceProvider(), array(
+    "serializer.srcDir" => __DIR__ . "/vendor/jms/serializer/src",
+));
 
 
 return $app;

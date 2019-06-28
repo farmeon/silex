@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Validator\ConstraintPhone;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class Authors
@@ -19,27 +20,32 @@ class Authors
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Type("integer")
      */
     protected $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Type("string")
      */
     protected $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Type("string")
      */
     protected $description;
 
     /**
      * @ORM\Column(type="text")
+     * @Type("string")
      */
     protected $phone;
 
     /**
      * @ORM\ManyToMany(targetEntity="Books", inversedBy="authors")
      * @ORM\JoinTable(name="authors_books")
+     * @Type("array")
      */
     protected $books;
 

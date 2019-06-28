@@ -13,8 +13,6 @@ require __DIR__.'/../src/controllers.php';
  */
 $app->mount('/admin/authors', new \Controller\AuthorsController());
 $app->mount('/admin/books', new \Controller\BooksController());
-
-
-//$app->mount('/api/v1/authors', new \Controller\ApiController());
+$app->mount('/patch', new \Controller\PatchController());
 
 $app->run();

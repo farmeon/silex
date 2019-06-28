@@ -1,3 +1,283 @@
+GET http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054832.405.html
+
+###
+
+PATCH http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054811.405.html
+
+###
+
+PATCH http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054350.200.html
+
+###
+
+POST http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054332.200.html
+
+###
+
+POST http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054251.405.html
+
+###
+
+POST http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T054125.405.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053830.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi&phone=32132131
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053737.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053721.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053710.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053254.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053224.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053157.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053047.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T053014.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T052933.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T052922.200.html
+
+###
+
+GET http://127.0.0.1:8888/patch/1?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T033834.200.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T124113.200.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T124102.500.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T120621.200.txt
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115753.200.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115723.200.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115545.200.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115527.500.html
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115520.200.json
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T115355.200.json
+
+###
+
+GET http://127.0.0.1:8888/api/v1/authors/2?name=testApi111111
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+name: test
+
+<> 2019-06-28T114943.200.json
+
+###
+
 PATCH http://127.0.0.1:8888/api/v1/authors/2?name=testApi111111
 Accept: */*
 Cache-Control: no-cache
@@ -209,263 +489,6 @@ Content-Type: application/json
 name: test
 
 <> 2019-06-26T042720.500.html
-
-###
-
-GET http://127.0.0.1:8888/api/v1/authors/2?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-name: test
-
-<> 2019-06-26T042658.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-name: test
-
-<> 2019-06-26T042640.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-name: test
-
-<> 2019-06-26T042631.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-name: test
-
-<> 2019-06-26T042622.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-name: test
-
-<> 2019-06-26T042609.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T042439.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T042424.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T042423.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041853.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041813.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041812.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041811.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041750.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041744.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041601.500.html
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041529.500.html
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041448.500.html
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041324.500.html
-
-###
-
-POST http://127.0.0.1:8888/api/v1/authors/1?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041314.405.html
-
-###
-
-GET http://127.0.0.1:8888/api/v1/authors/1?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041308.200.json
-
-###
-
-PUT http://127.0.0.1:8888/api/v1/authors/1?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041246.500.html
-
-###
-
-POST http://127.0.0.1:8888/api/v1/authors/?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041203.404.html
-
-###
-
-GET http://127.0.0.1:8888/api/v1/authors/?name=testApi&description=testApi
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041158.200.json
-
-###
-
-GET http://127.0.0.1:8888/api/v1/authors/?name=testApi&description=testApi&phone=123321231
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041138.200.json
-
-###
-
-POST http://127.0.0.1:8888/api/v1/authors/?name=testApi&description=testApi&phone=123321231
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T041114.404.html
-
-###
-
-POST http://127.0.0.1:8888/api/v1/authors/?name=testApi&description=testApi&phone=123321231
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T040957.404.html
-
-###
-
-POST http://127.0.0.1:8888/api/v1/authors/
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T040808.404.html
-
-###
-
-GET http://127.0.0.1:8888/api/v1/authors/
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-<> 2019-06-26T040225.200.json
 
 ###
 
