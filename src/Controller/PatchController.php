@@ -25,9 +25,33 @@ class PatchController extends AbstractController  implements ControllerProviderI
     public function connect(Application $app)
     {
         $factory = $app['controllers_factory'];
-        $factory->post("/{id}", [$this, 'index'])->bind('patch_index');
+        $factory->get("/{id}", [$this, 'getOne'])->bind('get_one');
+        $factory->patch("/{id}", [$this, 'patch'])->bind('patch');
+        $factory->delete("/{id}", [$this, 'remove'])->bind('remove');
 
         return $factory;
+    }
+
+    /**
+     * @param int $id
+     * @param Application $app
+     * @param Request $request
+     * @return string
+     * @throws InvalidOperationException
+     * @throws InvalidPatchDocumentJsonException
+     * @throws InvalidTargetDocumentJsonException
+     * @throws Patch\FailedTestException
+     */
+    public function getOne(int $id, Application $app, Request $request)
+    {
+        $format = 'xml';
+
+        $author = $app['orm.em']->getRepository(Authors::class)->find($id);
+
+        $serialize_author = $app["serializer"]->serialize($author, $format);
+
+
+        return $serialize_author;
     }
 
     /**
@@ -40,7 +64,7 @@ class PatchController extends AbstractController  implements ControllerProviderI
      * @throws InvalidTargetDocumentJsonException
      * @throws Patch\FailedTestException
      */
-    public function index(int $id, Application $app, Request $request)
+    public function patch(int $id, Application $app, Request $request)
     {
         $json_request = $request->getContent();
         $format = $request->getContentType();
@@ -48,10 +72,6 @@ class PatchController extends AbstractController  implements ControllerProviderI
         $author = $app['orm.em']->getRepository(Authors::class)->find($id);
 
         $serialize_author = $app["serializer"]->serialize($author, $format);
-
-        //$tested_str = '[{"op": "replace", "path": "/name", "value": "Adam"}]';
-        //{"id":1,"name":"Testing","description":"testing","phone":"12332123","books":[]}
-        //$patch = new Patch($serialize_author, $tested_str);
 
         $patch = new Patch($serialize_author, $json_request);
         $patchedDocument = $patch->apply();
@@ -63,4 +83,35 @@ class PatchController extends AbstractController  implements ControllerProviderI
 
         return $patchedDocument;
     }
+
+    /**
+     * @param int $id
+     * @param Application $app
+     * @param Request $request
+     * @return mixed
+     * @throws InvalidOperationException
+     * @throws InvalidPatchDocumentJsonException
+     * @throws InvalidTargetDocumentJsonException
+     * @throws Patch\FailedTestException
+     */
+    public function remove(int $id, Application $app, Request $request)
+    {
+        $json_request = $request->getContent();
+        $format = $request->getContentType();
+
+        $author = $app['orm.em']->getRepository(Authors::class)->find($id);
+
+        $serialize_author = $app["serializer"]->serialize($author, $format);
+
+        $patch = new Patch($serialize_author, $json_request);
+        $patchedDocument = $patch->apply();
+
+        $deserialize_author = $app["serializer"]->deserialize($patchedDocument, Authors::class, $format);
+
+        $app['orm.em']->merge($deserialize_author);
+        $app['orm.em']->flush();
+
+        return $patchedDocument;
+    }
+
 }
