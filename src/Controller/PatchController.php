@@ -25,9 +25,9 @@ class PatchController extends AbstractController  implements ControllerProviderI
     public function connect(Application $app)
     {
         $factory = $app['controllers_factory'];
-        $factory->get("/{id}", [$this, 'getOne'])->bind('get_one');
+        $factory->get("/{id}", [$this, 'getXml'])->bind('get_one');
         $factory->patch("/{id}", [$this, 'patch'])->bind('patch');
-        $factory->delete("/{id}", [$this, 'remove'])->bind('remove');
+        $factory->patch("/remove/{id}", [$this, 'remove'])->bind('remove');
 
         return $factory;
     }
@@ -42,16 +42,16 @@ class PatchController extends AbstractController  implements ControllerProviderI
      * @throws InvalidTargetDocumentJsonException
      * @throws Patch\FailedTestException
      */
-    public function getOne(int $id, Application $app, Request $request)
+    public function getXml(int $id, Application $app, Request $request)
     {
         $format = 'xml';
 
         $author = $app['orm.em']->getRepository(Authors::class)->find($id);
 
-        $serialize_author = $app["serializer"]->serialize($author, $format);
+        $serializeAuthor = $app["serializer"]->serialize($author, $format);
 
 
-        return $serialize_author;
+        return $serializeAuthor;
     }
 
     /**
@@ -66,19 +66,19 @@ class PatchController extends AbstractController  implements ControllerProviderI
      */
     public function patch(int $id, Application $app, Request $request)
     {
-        $json_request = $request->getContent();
+        $jsonRequest = $request->getContent();
         $format = $request->getContentType();
 
         $author = $app['orm.em']->getRepository(Authors::class)->find($id);
 
-        $serialize_author = $app["serializer"]->serialize($author, $format);
+        $serializeAuthor = $app["serializer"]->serialize($author, $format);
 
-        $patch = new Patch($serialize_author, $json_request);
+        $patch = new Patch($serializeAuthor, $jsonRequest);
         $patchedDocument = $patch->apply();
 
-        $deserialize_author = $app["serializer"]->deserialize($patchedDocument, Authors::class, $format);
+        $deserializeAuthor = $app["serializer"]->deserialize($patchedDocument, Authors::class, $format);
 
-        $app['orm.em']->merge($deserialize_author);
+        $app['orm.em']->merge($deserializeAuthor);
         $app['orm.em']->flush();
 
         return $patchedDocument;
@@ -96,19 +96,19 @@ class PatchController extends AbstractController  implements ControllerProviderI
      */
     public function remove(int $id, Application $app, Request $request)
     {
-        $json_request = $request->getContent();
+        $jsonRequest = $request->getContent();
         $format = $request->getContentType();
 
         $author = $app['orm.em']->getRepository(Authors::class)->find($id);
 
-        $serialize_author = $app["serializer"]->serialize($author, $format);
+        $serializeAuthor = $app["serializer"]->serialize($author, $format);
 
-        $patch = new Patch($serialize_author, $json_request);
+        $patch = new Patch($serializeAuthor, $jsonRequest);
         $patchedDocument = $patch->apply();
 
-        $deserialize_author = $app["serializer"]->deserialize($patchedDocument, Authors::class, $format);
+        $deserializeAuthor = $app["serializer"]->deserialize($patchedDocument, Authors::class, $format);
 
-        $app['orm.em']->merge($deserialize_author);
+        $app['orm.em']->merge($deserializeAuthor);
         $app['orm.em']->flush();
 
         return $patchedDocument;
